@@ -1,6 +1,3 @@
-#This program takes two integers (speed limit and driving speed) 
-#in miles per hour (mph) and outputs the traffic ticket amount.
-
 speed_limit = int(input("Enter the speed limit: \n"))
 driving_speed = int(input("Enter how fast you are driving: \n"))
 
