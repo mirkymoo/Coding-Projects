@@ -10,4 +10,4 @@ elif packageWeight > 10:
     freight = packageWeight * 3.8
 else
     print("Error.")
-print("$", freight)
+print("The shipping charge for the package is $", freight)
