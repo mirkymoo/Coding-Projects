@@ -62,9 +62,6 @@ print(f'User score: {user_score}')
 '''
 
 
-
-
-
 numbers = [3, -10, 5, 0, -9]
 for position, number in enumerate(numbers):
     if number < 0:

@@ -23,3 +23,16 @@ elif num2 > num1 and num2 > num3:
 else:
     print(num3, "is the largest number")
 """
+
+# using while loop
+'''
+num = int(input())
+largest_number = 0
+
+while num >= 0:
+    if num > largest_number:
+         largest_number = i
+    num = int(input())
+
+print(largest_number)
+'''
