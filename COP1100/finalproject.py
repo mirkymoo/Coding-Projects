@@ -35,8 +35,6 @@ def mainMenu():
             print("Invalid choice. Enter 1-3")
     exit
 
-
-
 def inPatientServicesMenu():
     print("\nIn-Patient Services Menu:")
     print("1. VAGINAL DELIVERY SIMPLE - $2924")
@@ -60,5 +58,47 @@ def inPatientServicesMenu():
                 inPatientServicesMenu()
         except ValueError:
             print("Invalid choice. Enter 1-9")
+
+def outPatientServicesMenu():
+    print("\nOut-Patient Services Menu:")
+    print("1. PAP SMEAR BETHESDA - $96")
+    print("2. PAP SMEAR SCREEN BY CYTOTEC MC - $106")
+    print("3. US OB COMPLETE EXAM - $900")
+    print("4. US OB COMPL EX ADDTL GESTATN- $450")
+    print("5. US OB LIMITED 1+FETUSES - $506")
+    print("6. Return to main menu.")
+    while True:
+        try:
+            selection = int(input("Enter choice: "))
+            if (selection > 0 and selection < 6):
+                services_total += selection
+            elif selection == 6:
+                mainMenu()
+            else:
+                print("Invalid choice. Enter 1-6")
+                outPatientServicesMenu()
+        except ValueError:
+            print("Invalid choice. Enter 1-6")
+
+def medicationMenu():
+    print("\nOut-Patient Services Menu:")
+    print("1. OB EPIDURAL 1ST HOUR - $669")
+    print("2. OB EPIDURAL EA ADDL HOUR - $472")
+    print("3. OB OR ANESTHESIA 1ST 30 MIN - $900")
+    print("4. OB OR ANESTHESIA EA ADDL 15 MIN - $450")
+    print("5. US OB LIMITED 1+FETUSES - $506")
+    print("6. Return to main menu.")
+    while True:
+        try:
+            selection = int(input("Enter choice: "))
+            if (selection > 0 and selection < 6):
+                services_total += selection
+            elif selection == 6:
+                mainMenu()
+            else:
+                print("Invalid choice. Enter 1-6")
+                medicationMenu()
+        except ValueError:
+            print("Invalid choice. Enter 1-6")
 
 mainMenu()
