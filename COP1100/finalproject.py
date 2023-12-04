@@ -12,6 +12,8 @@ def validate_input(prompt):
         except ValueError:
             print("Invalid input. Please enter a numeric value.")
 
+services_total = 0
+
 def mainMenu():
     print("\nPlease select an option:")
     print("1. In-Patient")
@@ -37,6 +39,7 @@ def mainMenu():
 
 def inPatientServicesMenu():
     print("\nIn-Patient Services Menu:")
+    print("Please select services provided")
     print("1. VAGINAL DELIVERY SIMPLE - $2924")
     print("2. VAGINAL DELIVERY COMPLEX - $4200")
     print("3. VAGINAL DELIVERY INTERMEDIATE - $3200")
@@ -46,6 +49,7 @@ def inPatientServicesMenu():
     print("7. POST PARTUM TUBAL - $2336")
     print("8. FETAL VERSION - $3828")
     print("9. Return to main menu.")
+    prices = [2924, 4200, 3200, 6200, 5200, 4341, 2336, 3828]
     while True:
         try:
             selection = int(input("Enter choice: "))
@@ -67,11 +71,12 @@ def outPatientServicesMenu():
     print("4. US OB COMPL EX ADDTL GESTATN- $450")
     print("5. US OB LIMITED 1+FETUSES - $506")
     print("6. Return to main menu.")
+    prices = [96, 106, 900, 450, 506]
     while True:
         try:
             selection = int(input("Enter choice: "))
             if (selection > 0 and selection < 6):
-                services_total += selection
+                services_total += prices[selection - 1]
             elif selection == 6:
                 mainMenu()
             else:
@@ -88,11 +93,12 @@ def medicationMenu():
     print("4. OB OR ANESTHESIA EA ADDL 15 MIN - $450")
     print("5. US OB LIMITED 1+FETUSES - $506")
     print("6. Return to main menu.")
+    prices = [669, 472, 900, 450, 506]
     while True:
         try:
             selection = int(input("Enter choice: "))
             if (selection > 0 and selection < 6):
-                services_total += selection
+                services_total += prices[selection - 1]
             elif selection == 6:
                 mainMenu()
             else:
