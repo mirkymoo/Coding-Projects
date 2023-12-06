@@ -1,6 +1,3 @@
-#
-
-#Validate that no negative inputs are entered
 def validate_input(prompt):
     while True:
         try:
@@ -14,11 +11,11 @@ def validate_input(prompt):
 
 def getChoiceSelection():
     selection = int(input("Enter choice: "))
-    return(selection)
+    return selection
 
 def getRoomCharge():
-    days = int(input("Enter how many days did the patient stay at the hospital:"))
-    return(days * 1662)
+    days = int(input("Enter how many days did the patient stay at the hospital: "))
+    return days * 1662
 
 def getPatientType():
     print("\nMain Menu")
@@ -27,9 +24,19 @@ def getPatientType():
     print("2. Out-Patient")
     print("3. Quit")
     patientType = int(input("Enter choice: "))
-    return(patientType)
+    return patientType
 
-def inPatientServicesMenu():
+def getServiceCharge(selection, patientType):
+    if patientType == 1:
+        prices = {1: 2924, 2: 4200, 3: 3200, 4: 6200, 5: 5200, 6: 4341, 7: 2336, 8: 3828}
+    elif patientType == 2:
+        prices = {1: 96, 2: 106, 3: 900, 4: 450, 5: 506}
+    else:
+        print("Error in Service Charge")
+        return 0
+    return prices.get(selection, 0)
+
+def inPatientServicesMenu(patientType):
     print("\nIn-Patient Services Menu:")
     print("Please select services provided")
     print("1. VAGINAL DELIVERY SIMPLE - $2924")
@@ -44,29 +51,16 @@ def inPatientServicesMenu():
     while True:
         try:
             selection = getChoiceSelection()
-            if (selection > 0 and selection < 9):
-                getServiceCharge(selection)
+            if 1 <= selection <= 8:
+                return getServiceCharge(selection, patientType)
             elif selection == 9:
-                getPatientType()
+                break
             else:
-                print("Invalid choice. Enter 1-6")
-                inPatientServicesMenu()
+                print("Invalid choice. Enter 1-9")
         except ValueError:
-            print("Invalid choice. Enter 1-6")
+            print("Invalid choice. Enter 1-9")
 
-def getServiceCharge(selection):
-    patientType = getPatientType()
-    if patientType == 1:
-        prices = {1: 2924, 2: 4200, 3: 3200, 4: 6200, 5: 5200, 6: 4341, 7: 2336, 8: 3828}
-        serviceCharge = prices[selection]
-    elif patientType == 2:
-        prices = {1: 96, 2: 106, 3: 900, 4: 450, 5: 506}
-        serviceCharge = prices[selection]
-    else:
-        print("Error in getServiceCharge")
-    return(serviceCharge)
-
-def outPatientServicesMenu():
+def outPatientServicesMenu(patientType):
     print("\nOut-Patient Services Menu:")
     print("1. PAP SMEAR BETHESDA - $96")
     print("2. PAP SMEAR SCREEN BY CYTOTEC MC - $106")
@@ -77,69 +71,70 @@ def outPatientServicesMenu():
     while True:
         try:
             selection = getChoiceSelection()
-            if (selection > 0 and selection < 6):
-                getServiceCharge(selection)
+            if 1 <= selection <= 5:
+                return getServiceCharge(selection, patientType)
             elif selection == 6:
-                getPatientType()
+                break
             else:
                 print("Invalid choice. Enter 1-6")
-                outPatientServicesMenu()
         except ValueError:
             print("Invalid choice. Enter 1-6")
 
 def medicationMenu():
-    print("\nOut-Patient Services Menu:")
+    print("\nMedication Menu:")
     print("1. OB EPIDURAL 1ST HOUR - $669")
     print("2. OB EPIDURAL EA ADDL HOUR - $472")
     print("3. OB OR ANESTHESIA 1ST 30 MIN - $900")
     print("4. OB OR ANESTHESIA EA ADDL 15 MIN - $450")
-    print("5. US OB LIMITED 1+FETUSES - $506")
+    print("5. OB OR ANESTHESIA - $551")
     print("6. Return to main menu.")
     while True:
         try:
             selection = getChoiceSelection()
-            if (selection > 0 and selection < 6):
-                getMedicationCharge(selection)
+            if 1 <= selection <= 5:
+                return getMedicationCharge(selection)
             elif selection == 6:
-                getPatientType()
+                break
             else:
                 print("Invalid choice. Enter 1-6")
-                medicationMenu()
         except ValueError:
             print("Invalid choice. Enter 1-6")
 
 def getMedicationCharge(selection):
-    prices = {1: 669, 2: 472, 3: 900, 4: 450, 5: 506}
-    medicationCharge = prices[selection]
-    return(medicationCharge)
+    prices = {1: 669, 2: 472, 3: 900, 4: 450, 5: 506, 6: 0}
+    return prices.get(selection, 0)
 
 def main():
-    patientType = getPatientType()
     while True:
+        patientType = getPatientType()
+        roomCharge = 0
+        serviceCharge = 0
+        medicationCharge = 0
+
         try:
             if patientType == 1:
                 roomCharge = getRoomCharge()
-                inPatientServicesMenu()
-                break
+                serviceCharge = inPatientServicesMenu(patientType)
             elif patientType == 2:
-                outPatientServicesMenu()
-                break
+                serviceCharge = outPatientServicesMenu(patientType)
             elif patientType == 3:
+                print("Exiting the program.")
                 break
             else:
                 print("Invalid choice. Enter 1-3")
-                getPatientType()
-        except ValueError:
-            print("Invalid choice. Enter 1-3")
-    
-    medicationCharge = getMedicationCharge()
-    serviceCharge = getServiceCharge()
+                continue
 
-    totalCharge = roomCharge + serviceCharge + medicationCharge
-    print(f"Room charges \t\t${roomCharge:0.2f}")
-    print(f"Lab & Services \t\t${serviceCharge:0.2f}")
-    print(f"Medication \t\t${medicationCharge:0.2f}")
-    print(f"Total charges \t\t${totalCharge:0.2f}")
+            if patientType == 1 or patientType == 2:
+                medicationCharge = medicationMenu()
+
+            totalCharge = roomCharge + serviceCharge + medicationCharge
+            print(f"Room charges \t\t${roomCharge:0.2f}")
+            print(f"Lab & Services \t\t${serviceCharge:0.2f}")
+            print(f"Medication \t\t${medicationCharge:0.2f}")
+            print(f"Total charges \t\t${totalCharge:0.2f}")
+
+        except ValueError:
+            print("Invalid choice. Enter a numeric value.")
+        break
 
 main()
-
