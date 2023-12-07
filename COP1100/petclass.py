@@ -30,6 +30,6 @@ def main():
 
     my_pet = Pet(pet_name,pet_type,pet_age)
 
-    print('You have a', my_pet.getPetAge(), 'year old pet', my_pet.getPetType(), 'named', my_pet.getPetName())
+    print('\nYou have a', my_pet.getPetAge(), 'year old pet', my_pet.getPetType(), 'named', my_pet.getPetName())
     
 main()
