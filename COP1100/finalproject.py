@@ -15,7 +15,7 @@ def getChoiceSelection():
     return selection
 
 def getRoomCharge():
-    days = validate_input("\nEnter how many days did the patient stay at the hospital: ")
+    days = validate_input("Enter how many days did the patient stay at the hospital: ")
     return days * 1662
 
 def getPatientType():
@@ -79,7 +79,7 @@ def outPatientServicesMenu(patientType):
         else:
             print("Invalid choice. Enter 1-6")    
 
-def inPatientMedicationMenu(patientType):
+def inPatientMedicationMenu():
     print("\nMedication Menu:")
     print("1. OB EPIDURAL 1ST HOUR - $669")
     print("2. OB EPIDURAL EA ADDL HOUR - $472")
@@ -93,11 +93,10 @@ def inPatientMedicationMenu(patientType):
     while True:
         selection = getChoiceSelection()
         if 1 <= selection <= 5:
-            medication_charge += getMedicationCharge(selection, patientType)
+            medication_charge += getMedicationCharge(selection)
             print(f"\nOption {selection} selected. Please select another option or press 6 to finish.")
         elif selection == 6:
-            break 
-
+            break     
     return medication_charge
 
 def outPatientMedicationMenu():
@@ -142,7 +141,7 @@ def main():
             if patientType == 1:
                 roomCharge = getRoomCharge()
                 serviceCharge = inPatientServicesMenu(patientType)
-                medicationCharge = inPatientMedicationMenu(patientType)
+                medicationCharge = inPatientMedicationMenu()
             elif patientType == 2:
                 serviceCharge = outPatientServicesMenu(patientType)
                 medicationCharge = outPatientMedicationMenu(patientType)
@@ -155,14 +154,10 @@ def main():
 
             if roomCharge is not None and serviceCharge is not None:
                 totalCharge = roomCharge + serviceCharge + medicationCharge
-                print(" ********************************")
-                print("\n      Hospital Bill Summary\n") 
-                print(" ********************************\n")
-                print(f" Room charges \t\t${roomCharge:0.2f}")
-                print(f" Lab & Services\t\t${serviceCharge:0.2f}")
-                print(f" Medication \t\t${medicationCharge:0.2f}")
-                print(f" Total charges \t\t${totalCharge:0.2f}")
-                print("\n ********************************")
+                print(f"Room charges \t\t${roomCharge:0.2f}")
+                print(f"Lab & Services \t\t${serviceCharge:0.2f}")
+                print(f"Medication \t\t${medicationCharge:0.2f}")
+                print(f"Total charges \t\t${totalCharge:0.2f}")
             else:
                 print("Invalid charges. Please try again.")
 
